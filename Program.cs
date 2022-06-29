@@ -1,5 +1,4 @@
-﻿
-using static System.Console;
+﻿using static System.Console;
 
 
 
@@ -16,7 +15,7 @@ namespace Hangman
             Console.WriteLine("");
             // Console.WriteLine("");
             // Console.WriteLine("");
-            
+
             return;
         }
         static string EnterAWord()
@@ -30,16 +29,16 @@ namespace Hangman
 
         static string[] DefineArrayWordsToGuess(string[] arr)
         {
-            arr[0]  = "Ship";
-            arr[1]  = "Submarine";
-            arr[2]  = "Car";
-            arr[3]  = "Airplane";
-            arr[4]  = "Bicycle";
-            arr[5]  = "Motorcycle";
-            arr[6]  = "Helicopter";
-            arr[7]  = "Boat";
-            arr[8]  = "Yacht";
-            arr[9]  = "House";
+            arr[0] = "Ship";
+            arr[1] = "Submarine";
+            arr[2] = "Car";
+            arr[3] = "Airplane";
+            arr[4] = "Bicycle";
+            arr[5] = "Motorcycle";
+            arr[6] = "Helicopter";
+            arr[7] = "Boat";
+            arr[8] = "Yacht";
+            arr[9] = "House";
             arr[10] = "Chalet";
             arr[11] = "Rythm";
             arr[12] = "";
@@ -59,7 +58,7 @@ namespace Hangman
             return arr;
         }
 
-        static void PrintGuesses(string[] lettersInRandomWord, string[] guessedLetters , string RandomWord)
+        static void PrintGuesses(string[] lettersInRandomWord, string[] guessedLetters, string RandomWord)
         {
             Console.WriteLine("");
             Console.WriteLine("");
@@ -71,6 +70,10 @@ namespace Hangman
             return;
         }
 
+        static void MainGuessFunction()
+        {
+
+        }
 
 
         static void Main(string[] args)
@@ -101,7 +104,7 @@ namespace Hangman
             bool userGuessedWholeWord = false;
 
             int WordLength = RandomWord.Length;
-            
+
             // Console.WriteLine(RandomWord);
             // Console.WriteLine(WordLength);
             // Console.WriteLine();
@@ -114,7 +117,7 @@ namespace Hangman
                 lettersInRandomWord[i] = "_";
                 guessedLetters[i] = "_";
             }
-           
+
             // PrintGuesses(lettersInRandomWord , guessedLetters, RandomWord);
 
             // Console.WriteLine();
@@ -122,6 +125,7 @@ namespace Hangman
 
             do
             {
+
                 GuessedWord = EnterAWord();
                 nrOfGuesses++;
                 guessesLeft--;
@@ -130,12 +134,21 @@ namespace Hangman
 
 
                 if (GuessedWord.Length > 1)
-                    userGuessedWholeWord = true;
-                if (GuessedWord == RandomWord)
                 {
-                    Console.WriteLine("Congrats , You guessed the right word " + RandomWord + " in " + nrOfGuesses);
-                    UserGuessedWord = true; 
-
+                    userGuessedWholeWord = true;
+                    if (GuessedWord == RandomWord)
+                    {
+                        // Console.WriteLine("Congrats , You guessed the right word " + RandomWord + " in " + nrOfGuesses);
+                        UserGuessedWord = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine();
+                        PrintGuesses(lettersInRandomWord, guessedLetters, RandomWord);
+                        Console.WriteLine();
+                        Console.WriteLine("Wrong guess , " + guessesLeft + " guesses left!");
+                        Console.WriteLine();
+                    }
                 }
 
                 if (GuessedWord.Length == 1)
@@ -160,7 +173,7 @@ namespace Hangman
                         }
 
                         // If you guessed wrong //
-                        
+
                     }
                     Console.WriteLine();
 
@@ -168,28 +181,28 @@ namespace Hangman
                     {
                         wrongGuesses = wrongGuesses + guessedLetter;
                         Console.WriteLine(guessedLetter + " was wrong! ");
-                       
+
                     }
 
-                    Console.WriteLine("Your guesses: " + wrongGuesses );
+                    Console.WriteLine("Your guesses: " + wrongGuesses);
                     Console.WriteLine(guessesLeft + " guesses left.");
                     Console.WriteLine();
 
-                    PrintGuesses( lettersInRandomWord, guessedLetters, RandomWord);
+                    PrintGuesses(lettersInRandomWord, guessedLetters, RandomWord);
                     Console.WriteLine();
-                    string finalWord =""; 
+                    string finalWord = "";
                     for (int i = 0; i < RandomWord.Length; i++)
-                       finalWord = finalWord + guessedLetters[i];
-
+                        finalWord = finalWord + guessedLetters[i];
 
                     if (finalWord == RandomWord)
                         UserGuessedWord = true;
 
                     // Console.WriteLine(finalWord + " " + nrOfGuesses + " " + UserGuessedWord);
-                }
-            } while ( !UserGuessedWord && nrOfGuesses < maxGuesses );
 
-            if ( UserGuessedWord )
+                }
+            } while (!UserGuessedWord && nrOfGuesses < maxGuesses);
+
+            if (UserGuessedWord)
                 Console.WriteLine("Congratulations! You guessed the right word in " + nrOfGuesses + " attempts!");
             else
                 Console.WriteLine("You failed , the right guess would have been " + RandomWord);
